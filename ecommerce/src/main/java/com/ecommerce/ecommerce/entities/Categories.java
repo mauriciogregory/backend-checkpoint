@@ -2,6 +2,7 @@ package com.ecommerce.ecommerce.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.*;
 
 @Entity
@@ -16,8 +17,23 @@ public class Categories implements Serializable {
     private Integer id;
     private String name;
 
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant created;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant updated;
+
     @ManyToMany(mappedBy = "categories")
     private Set<Products> products = new HashSet<>();
+
+    @PrePersist
+    public void BeforeSave() {
+        created = Instant.now();
+    }
+
+    @PreUpdate
+    public void BeforeUpdate() {
+        updated = Instant.now();
+    }
 
     public Categories() {
     }
@@ -45,5 +61,13 @@ public class Categories implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Instant getCriado() {
+        return created;
+    }
+
+    public Instant getAtualizado() {
+        return updated;
     }
 }

@@ -22,28 +22,25 @@ public class ProductsDTO {
     public ProductsDTO() {
     }
 
-    public ProductsDTO(Integer id, String title, String description, Double price, String image, List<CategoriesDTO> categories) {
+    public ProductsDTO(Integer id, String title, String description, Double price, String image) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
         this.image = image;
-        this.categories = categories;
     }
 
-    public ProductsDTO(Products products) {
-        id = products.getId();
-        title = products.getTitle();
-        description = products.getDescription();
-        price = products.getPrice();
-        image = products.getImage();
-        categories = products.getCategories().stream().map(
-                x -> new CategoriesDTO(x)).collect(Collectors.toList());
+    public ProductsDTO(Products entity) {
+        id = entity.getId();
+        title = entity.getTitle();
+        description = entity.getDescription();
+        price = entity.getPrice();
+        image = entity.getImage();
     }
 
     public ProductsDTO(Products product, Set<Categories> categorie){
         this(product);
-        categorie.forEach(cat -> this.categories.add(new CategoriesDTO(cat)));
+        categorie.forEach(item -> this.categories.add(new CategoriesDTO(item)));
     }
 
     public Integer getId() {
@@ -90,7 +87,4 @@ public class ProductsDTO {
         return categories;
     }
 
-    public void setCategories(List<CategoriesDTO> categories) {
-        this.categories = categories;
-    }
 }

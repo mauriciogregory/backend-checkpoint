@@ -19,6 +19,8 @@ public class ProductsController {
     @Autowired
     private ProductsService productService;
 
+
+    // Buscar Todos
     @GetMapping
     public ResponseEntity<Page<ProductsDTO>> findAll(@RequestParam( value = "page", defaultValue = "0") Integer page,
                                                      @RequestParam(value = "size", defaultValue = "5") Integer size){
@@ -28,6 +30,7 @@ public class ProductsController {
         return ResponseEntity.ok(productDTOS);
     }
 
+    // Buscar todos por id
     @GetMapping("/{id}")
     public ResponseEntity<ProductsDTO> findById(@PathVariable Integer id){
         ProductsDTO obj = productService.buscarPorId(id);
