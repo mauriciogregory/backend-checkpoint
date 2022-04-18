@@ -38,6 +38,7 @@ public class ProductsDTO {
         image = entity.getImage();
     }
 
+    // Recebe a entidade, mais as categorias, pra cada categoria adicionada, cria um DTO
     public ProductsDTO(Products product, Set<Categories> categorie){
         this(product);
         categorie.forEach(item -> this.categories.add(new CategoriesDTO(item)));

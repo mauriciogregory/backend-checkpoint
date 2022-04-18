@@ -17,9 +17,9 @@ public class Categories implements Serializable {
     private Integer id;
     private String name;
 
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @Column(columnDefinition = "TIMESTAMP")
     private Instant created;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @Column(columnDefinition = "TIMESTAMP")
     private Instant updated;
 
     @ManyToMany(mappedBy = "categories")

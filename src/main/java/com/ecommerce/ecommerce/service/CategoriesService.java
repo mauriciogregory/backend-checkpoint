@@ -28,7 +28,8 @@ public class CategoriesService {
     @Transactional(readOnly = true)
     public CategoriesDTO buscarPorId(Integer id){
         Optional<Categories> categoryOptional = categoriesRepository.findById(id);
-        Categories categories = categoryOptional.orElseThrow(() -> new EntidadeNaoEncontrada("Entidade não encontrada!"));
+        Categories categories = categoryOptional.orElseThrow(() ->
+                new EntidadeNaoEncontrada("Entidade não encontrada!"));
         return new CategoriesDTO(categories);
     }
 

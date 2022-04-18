@@ -2,6 +2,7 @@ package com.ecommerce.ecommerce.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,6 +11,23 @@ import java.util.Set;
 public class Products implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+
+    // COLUNAS DE QUANDO FOI CRIADO E ATUALIZADO
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant created;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant updated;
+
+    @PrePersist
+    public void BeforeSave() {
+        created = Instant.now();
+    }
+
+    @PreUpdate
+    public void BeforeUpdate() {
+        updated = Instant.now();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

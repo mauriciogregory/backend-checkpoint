@@ -8,8 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.net.URI;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -35,5 +37,28 @@ public class ProductsController {
     public ResponseEntity<ProductsDTO> findById(@PathVariable Integer id){
         ProductsDTO obj = productService.buscarPorId(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    // Inserir produto
+    @PostMapping
+    public ResponseEntity<ProductsDTO> insert(@RequestBody ProductsDTO dto){
+        dto = productService.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
+    }
+
+    // Alterar produto
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductsDTO> update (@PathVariable Integer id, @RequestBody ProductsDTO dto){
+        dto = productService.update(id, dto);
+        return ResponseEntity.ok().body(dto);
+    }
+
+    // Deletar produto
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete (@PathVariable Integer id){
+        productService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
